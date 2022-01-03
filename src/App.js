@@ -1,6 +1,6 @@
-import Home from './Home.js';
-import React from 'react';
-import {createGlobalStyle} from 'styled-components'
+import Home from "./Home.js";
+import React from "react";
+import {createGlobalStyle} from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
   body {

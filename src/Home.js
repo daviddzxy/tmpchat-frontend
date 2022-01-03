@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useSelector, useDispatch } from 'react-redux'
-import {setUserName, setChatRoomName} from "./reducer"
+import {setUserName, setChatRoomName, createChatRoom} from "./actions"
 
 const PageGrid = styled.div`
   display: grid;
@@ -47,6 +47,11 @@ const Home = () => {
         dispatch(setChatRoomName(event.target.value))
     }
 
+    const createChatRoomHandler = event => {
+        event.preventDefault()
+        dispatch(createChatRoom(chatRoomName))
+    }
+
     return (
         <PageGrid>
             <LeftCenterDiv>
@@ -62,7 +67,7 @@ const Home = () => {
                     <Input type={"text"} id={"chatRoomName"} value={chatRoomName} onChange={updateChatRoomNameInput}/>
                 </div>
                 <div>
-                    <button>Create room</button>
+                    <button onClick={createChatRoomHandler}>Create room</button>
                 </div>
                 <div>
                     <button>Join room</button>
