@@ -12,11 +12,23 @@ export const setChatRoomName = name => {
     }
 }
 
-export const createChatRoom = name => {
+export const createRoom = (roomName, userNames, messages=[]) => {
     return {
         type: "CREATE_ROOM",
         data: {
-            "chatRoomName": name,
+            roomName: roomName,
+            userNames: userNames,
+            messages: messages
+        }
+    }
+}
+
+export const joinChatRoom = (roomName, userName) => {
+    return {
+        type: "JOIN_ROOM",
+        data: {
+            roomName: roomName,
+            userName: userName
         }
     }
 }
