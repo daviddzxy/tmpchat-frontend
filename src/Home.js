@@ -2,7 +2,7 @@ import styled from "styled-components"
 import {useSelector, useDispatch} from 'react-redux'
 import {setUserName, setChatRoomName, joinChatRoom} from "./actions"
 
-const PageGrid = styled.div`
+const PageLayout = styled.div`
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
@@ -53,7 +53,7 @@ const Home = () => {
     }
 
     return (
-        <PageGrid>
+        <PageLayout>
             <LeftCenterDiv>
                 <h1>Temporary chat</h1>
             </LeftCenterDiv>
@@ -70,7 +70,7 @@ const Home = () => {
                     <button onClick={joinChatRoomHandler}>Join room</button>
                 </div>
             </InputGrid>
-        </PageGrid>
+        </PageLayout>
 
     )
 }
