@@ -1,4 +1,4 @@
-import {createRoom, setConnectedStatus} from "./actions"
+import {addUserNames, createRoom, setConnectedStatus} from "./actions"
 
 const createWebSocketMiddleWare = url => {
     return ({getState, dispatch}) => {
@@ -9,6 +9,9 @@ const createWebSocketMiddleWare = url => {
             switch (message.type) {
                 case "SUCCESS_JOIN_ROOM":
                     dispatch(setConnectedStatus(message.data.roomName, true))
+                    break;
+                case "GET_ALL_CLIENT_NAMES":
+                    dispatch(addUserNames(message.data.roomName, message.data.clientNames))
                     break;
             }
         }

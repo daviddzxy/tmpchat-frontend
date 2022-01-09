@@ -34,6 +34,16 @@ export const setConnectedStatus = (roomName, isConnected) => {
     }
 }
 
+export const addUserNames = (roomName, userNames=[]) => {
+    return {
+        type: "ADD_CLIENTS",
+        data: {
+            roomName: roomName,
+            userNames: userNames
+        }
+    }
+}
+
 export const joinChatRoom = (roomName, userName) => {
     return {
         type: "JOIN_ROOM",
