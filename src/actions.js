@@ -12,13 +12,24 @@ export const setChatRoomName = name => {
     }
 }
 
-export const createRoom = (roomName, userNames, messages=[]) => {
+export const createRoom = (roomName, isConnected= false, userNames = [], messages=[]) => {
     return {
         type: "CREATE_ROOM",
         data: {
             roomName: roomName,
+            isConnected: isConnected,
             userNames: userNames,
             messages: messages
+        }
+    }
+}
+
+export const setConnectedStatus = (roomName, isConnected) => {
+    return {
+        type: "SET_CONNECTED_STATUS",
+        data: {
+            roomName: roomName,
+            isConnected: isConnected
         }
     }
 }

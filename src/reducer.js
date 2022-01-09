@@ -16,7 +16,20 @@ const reducer = (state = defaultState, action) => {
                 chatRooms: {
                     ...state.chatRooms,
                     [action.data.roomName]: {
-                        userNames: action.data.userNames, messages: action.data.messages
+                        isConnected: action.data.isConnected,
+                        userNames: action.data.userNames,
+                        messages: action.data.messages
+                    }
+                }
+            }
+        case "SET_CONNECTED_STATUS":
+            return {
+                ...state,
+                chatRooms: {
+                    ...state.chatRooms,
+                    [action.data.roomName]: {
+                        ...state.chatRooms[action.data.roomName],
+                        isConnected: action.data.isConnected
                     }
                 }
             }
