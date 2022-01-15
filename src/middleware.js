@@ -10,7 +10,7 @@ const createWebSocketMiddleWare = url => {
                 case "SUCCESS_JOIN_ROOM":
                     dispatch(setConnectedStatus(message.data.roomName, true))
                     break;
-                case "GET_ALL_CLIENT_NAMES":
+                case "CLIENT_LIST":
                     dispatch(addUserNames(message.data.roomName, message.data.clientNames))
                     break;
             }

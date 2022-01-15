@@ -1,16 +1,16 @@
 // TODO: move default state elsewhere, inject default state inside index.js createStore
 const defaultState = {
-    userName: "",
-    chatRoomName: "",
+    userNameInput: "",
+    chatRoomNameInput: "",
     chatRooms: {}
 }
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SET_USER_NAME":
-            return {...state, userName: action.data}
+            return {...state, userNameInput: action.data}
         case "SET_CHAT_ROOM_NAME":
-            return {...state, chatRoomName: action.data}
+            return {...state, chatRoomNameInput: action.data}
         case "CREATE_ROOM":
             return {
                 ...state,
