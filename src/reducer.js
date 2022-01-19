@@ -1,51 +1,44 @@
 // TODO: move default state elsewhere, inject default state inside index.js createStore
 const defaultState = {
-    userNameInput: "",
+    clientNameInput: "",
     chatRoomNameInput: "",
-    chatRooms: {}
+    chatRoom: {
+        roomName: "",
+        isConnected: false,
+        clientNames: [],
+        messages: []
+    }
 }
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
-        case "SET_USER_NAME":
-            return {...state, userNameInput: action.data}
-        case "SET_CHAT_ROOM_NAME":
+        case "SET_CLIENT_NAME_INPUT":
+            return {...state, clientNameInput: action.data}
+        case "SET_CHAT_ROOM_NAME_INPUT":
             return {...state, chatRoomNameInput: action.data}
-        case "CREATE_ROOM":
-            return {
-                ...state,
-                chatRooms: {
-                    ...state.chatRooms,
-                    [action.data.roomName]: {
-                        isConnected: action.data.isConnected,
-                        userNames: action.data.userNames,
-                        messages: action.data.messages
-                    }
-                }
-            }
         case "SET_CONNECTED_STATUS":
             return {
                 ...state,
-                chatRooms: {
-                    ...state.chatRooms,
-                    [action.data.roomName]: {
-                        ...state.chatRooms[action.data.roomName],
-                        isConnected: action.data.isConnected
-                    }
+                chatRoom: {
+                    ...state.chatRoom,
+                    isConnected: action.data.isConnected
+                }
+            }
+        case "SET_ROOM_NAME":
+            return {
+                ...state,
+                chatRoom: {
+                    ...state.chatRoom,
+                    roomName: action.data.roomName
                 }
             }
         case "ADD_CLIENTS":
             return {
                 ...state,
-                chatRooms: {
-                    ...state.chatRooms,
-                    [action.data.roomName]: {
-                        ...state.chatRooms[action.data.roomName],
-                        userNames: [...state.chatRooms[action.data.roomName].userNames, ...action.data.userNames]
+                chatRoom: {
+                    clientNames: [...state.chatRoom.clientNames, ...action.data.clientNames]
                     }
                 }
-            }
-
         default:
             return state
     }

@@ -8,7 +8,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import reducer from "./reducer";
 import createWebSocketMiddleWare from "./middleware"
 import Home from "./Home";
-import Chat from "./Chat";
+import ChatRoom from "./Chat";
 import Header from "./Header";
 
 const store = createStore(reducer,  composeWithDevTools(applyMiddleware(createWebSocketMiddleWare())))
@@ -27,7 +27,7 @@ ReactDOM.render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />}/>
-                    <Route path="/chat/:name" element={<Chat />}/>
+                    <Route path="/chat" element={<ChatRoom />}/>
                 </Routes>
             </BrowserRouter>
         </Provider>

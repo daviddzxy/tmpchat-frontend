@@ -1,55 +1,59 @@
-export const setUserName = name => {
+export const setClientNameInput = name => {
     return {
-        type: "SET_USER_NAME",
+        type: "SET_CLIENT_NAME_INPUT",
         data: name
     }
 }
 
-export const setChatRoomName = name => {
+export const setChatRoomNameInput = name => {
     return {
-        type: "SET_CHAT_ROOM_NAME",
+        type: "SET_CHAT_ROOM_NAME_INPUT",
         data: name
     }
 }
 
-export const createRoom = (roomName, isConnected= false, userNames = [], messages=[]) => {
-    return {
-        type: "CREATE_ROOM",
-        data: {
-            roomName: roomName,
-            isConnected: isConnected,
-            userNames: userNames,
-            messages: messages
-        }
-    }
-}
-
-export const setConnectedStatus = (roomName, isConnected) => {
+export const setConnectedStatus = (isConnected) => {
     return {
         type: "SET_CONNECTED_STATUS",
         data: {
-            roomName: roomName,
             isConnected: isConnected
         }
     }
 }
 
-export const addUserNames = (roomName, userNames=[]) => {
+export const setRoomName = (roomName) => {
     return {
-        type: "ADD_CLIENTS",
+        type: "SET_ROOM_NAME",
         data: {
-            roomName: roomName,
-            userNames: userNames
+            roomName: roomName
         }
     }
 }
 
-export const joinChatRoom = (roomName, userName) => {
+export const addClientNames = (roomName, clientNames=[]) => {
+    return {
+        type: "ADD_CLIENTS",
+        data: {
+            clientNames: clientNames
+        }
+    }
+}
+
+export const joinChatRoom = (roomName, clientName) => {
     return {
         type: "JOIN_ROOM",
         data: {
             roomName: roomName,
-            userName: userName
+            clientName: clientName
+        }
+    }
+}
+
+export const leaveChatRoom = (roomName) => {
+    return {
+        type: "LEAVE_ROOM",
+        data: {
+            roomName: roomName
         }
     }
 }

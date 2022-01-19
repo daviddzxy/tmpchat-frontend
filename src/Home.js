@@ -1,36 +1,36 @@
 import {useSelector, useDispatch} from 'react-redux'
-import {setUserName, setChatRoomName, joinChatRoom} from "./actions"
+import {setClientNameInput, setChatRoomNameInput, joinChatRoom} from "./actions"
 import {useNavigate} from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userName = useSelector(state => state.userName)
-    const chatRoomName = useSelector(state => state.chatRoomName)
+    const clientName = useSelector(state => state.clientNameInput)
+    const roomName = useSelector(state => state.chatRoomNameInput)
 
-    const updateUserNameInput = event => {
-        dispatch(setUserName(event.target.value))
+    const updateClientNameInput = event => {
+        dispatch(setClientNameInput(event.target.value))
     }
 
     const updateChatRoomNameInput = event => {
-        dispatch(setChatRoomName(event.target.value))
+        dispatch(setChatRoomNameInput(event.target.value))
     }
 
     const joinChatRoomHandler = event => {
         event.preventDefault()
-        dispatch(joinChatRoom(chatRoomName, userName))
-        navigate(`/chat/${chatRoomName}`);
+        dispatch(joinChatRoom(roomName, clientName))
+        navigate(`/chat`);
     }
 
     return (
         <div>
             <div>
-                <label htmlFor={"userName"}>Name</label>
-                <input type={"text"} id={"userName"} value={userName} onChange={updateUserNameInput}/>
+                <label htmlFor={"clientName"}>Name</label>
+                <input type={"text"} id={"clientName"} value={clientName} onChange={updateClientNameInput}/>
             </div>
             <div>
-                <label htmlFor={"chatRoomName"}>Chatroom</label>
-                <input type={"text"} id={"chatRoomName"} value={chatRoomName} onChange={updateChatRoomNameInput}/>
+                <label htmlFor={"roomName"}>Chatroom</label>
+                <input type={"text"} id={"roomName"} value={roomName} onChange={updateChatRoomNameInput}/>
             </div>
             <div>
                 <button onClick={joinChatRoomHandler}>Join room</button>

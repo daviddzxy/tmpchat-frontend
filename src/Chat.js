@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Chat = () => {
+const ChatRoom = () => {
     return (
         <div>
             <h2>Chat</h2>
@@ -9,4 +9,4 @@ const Chat = () => {
     );
 }
 
-export default Chat;
+export default ChatRoom;
