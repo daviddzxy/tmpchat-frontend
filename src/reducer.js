@@ -2,6 +2,7 @@
 const defaultState = {
     clientNameInput: "",
     chatRoomNameInput: "",
+    chatInput: "",
     chatRoom: {
         roomName: "",
         isConnected: false,
@@ -16,6 +17,10 @@ const reducer = (state = defaultState, action) => {
             return {...state, clientNameInput: action.data}
         case "SET_CHAT_ROOM_NAME_INPUT":
             return {...state, chatRoomNameInput: action.data}
+        case "SET_CHAT_INPUT":
+            return {...state, chatInput: action.data}
+        case "ADD_MESSAGE":
+            return {...state, chatRoom: {...state.chatRoom, messages: [...state.chatRoom.messages, action.data]}}
         case "SET_CONNECTED_STATUS":
             return {
                 ...state,
@@ -36,6 +41,7 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 chatRoom: {
+                    ...state.chatRoom,
                     clientNames: [...state.chatRoom.clientNames, ...action.data.clientNames]
                     }
                 }

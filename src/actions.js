@@ -12,6 +12,13 @@ export const setChatRoomNameInput = name => {
     }
 }
 
+export const setChatInput = text => {
+    return {
+        type: "SET_CHAT_INPUT",
+        data: text
+    }
+}
+
 export const setConnectedStatus = (isConnected) => {
     return {
         type: "SET_CONNECTED_STATUS",
@@ -26,6 +33,17 @@ export const setRoomName = (roomName) => {
         type: "SET_ROOM_NAME",
         data: {
             roomName: roomName
+        }
+    }
+}
+
+export const addMessage = (text, clientName, id) => {
+    return {
+        type: "ADD_MESSAGE",
+        data: {
+            text: text,
+            clientName: clientName,
+            id: id
         }
     }
 }
@@ -49,11 +67,11 @@ export const joinChatRoom = (roomName, clientName) => {
     }
 }
 
-export const leaveChatRoom = (roomName) => {
+export const sendTextMessage = (text) => {
     return {
-        type: "LEAVE_ROOM",
+        type: "SEND_TEXT_MESSAGE",
         data: {
-            roomName: roomName
+            text: text,
         }
     }
 }
