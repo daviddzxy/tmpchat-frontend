@@ -26,6 +26,9 @@ const createWebSocketMiddleWare = url => {
                 case "TEXT":
                     socket.send(JSON.stringify(action))
                     break;
+                case "PART":
+                    socket.send(JSON.stringify(action))
+                    break;
             }
             return next(action)
         }

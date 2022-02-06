@@ -67,6 +67,12 @@ export const joinChatRoom = (roomName, clientName) => {
     }
 }
 
+export const leaveChatRoom = () => {
+    return {
+        type: "PART",
+    }
+}
+
 export const sendTextMessage = (text) => {
     return {
         type: "TEXT",

@@ -23,11 +23,11 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <GlobalStyle/>
-            <Header/>
             <BrowserRouter>
+                <Header/>
                 <Routes>
                     <Route path="/" element={<Home />}/>
-                    <Route path="/chat" element={<ChatRoom />}/>
+                    <Route path="/chat/:roomName" element={<ChatRoom />}/>
                 </Routes>
             </BrowserRouter>
         </Provider>

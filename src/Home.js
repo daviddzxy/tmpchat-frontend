@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux'
-import {setClientNameInput, setChatRoomNameInput, joinChatRoom} from "./actions"
+import {setClientNameInput, setChatRoomNameInput} from "./actions"
 import {useNavigate} from "react-router-dom";
 
 const Home = () => {
@@ -18,8 +18,7 @@ const Home = () => {
 
     const joinChatRoomHandler = event => {
         event.preventDefault()
-        dispatch(joinChatRoom(roomName, clientName))
-        navigate(`/chat`);
+        navigate(`/chat/${roomName}`);
     }
 
     return (
