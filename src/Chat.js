@@ -1,31 +1,32 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux"
-import {joinChatRoom, leaveChatRoom, sendTextMessage, setChatInput} from './actions'
-import {useParams} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { joinChatRoom, leaveChatRoom, sendTextMessage, setChatInput } from './actions';
+import { useParams } from "react-router-dom";
 import Message from "./Message";
 
+
 const ChatRoom = () => {
-    const dispatch = useDispatch()
-    const {roomName} = useParams()
-    const clientName = useSelector(state => state.clientNameInput)
-    const chatInput = useSelector(state => state.chatInput)
-    const messages = useSelector(state => state.chatRoom.messages)
+    const dispatch = useDispatch();
+    const {roomName} = useParams();
+    const clientName = useSelector(state => state.clientNameInput);
+    const chatInput = useSelector(state => state.chatInput);
+    const messages = useSelector(state => state.chatRoom.messages);
 
     const updateChatInput = event => {
-        dispatch(setChatInput(event.target.value))
-    }
+        dispatch(setChatInput(event.target.value));
+    };
 
     const sendMessage = event => {
-        event.preventDefault()
-        dispatch(sendTextMessage(chatInput))
-    }
+        event.preventDefault();
+        dispatch(sendTextMessage(chatInput));
+    };
 
     useEffect(() => {
-        dispatch(joinChatRoom(roomName, clientName))
+        dispatch(joinChatRoom(roomName, clientName));
         return () => {
-            dispatch(leaveChatRoom())
-        }
-    }, [dispatch, roomName, clientName])
+            dispatch(leaveChatRoom());
+        };
+    }, [dispatch, roomName, clientName]);
 
     return (
         <div>
@@ -39,6 +40,6 @@ const ChatRoom = () => {
             </div>
         </div>
     );
-}
+};
 
 export default ChatRoom;

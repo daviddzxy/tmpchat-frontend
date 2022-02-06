@@ -1,25 +1,26 @@
-import {useSelector, useDispatch} from 'react-redux'
-import {setClientNameInput, setChatRoomNameInput} from "./actions"
-import {useNavigate} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { setClientNameInput, setChatRoomNameInput } from "./actions";
+import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const clientName = useSelector(state => state.clientNameInput)
-    const roomName = useSelector(state => state.chatRoomNameInput)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const clientName = useSelector(state => state.clientNameInput);
+    const roomName = useSelector(state => state.chatRoomNameInput);
 
     const updateClientNameInput = event => {
-        dispatch(setClientNameInput(event.target.value))
-    }
+        dispatch(setClientNameInput(event.target.value));
+    };
 
     const updateChatRoomNameInput = event => {
-        dispatch(setChatRoomNameInput(event.target.value))
-    }
+        dispatch(setChatRoomNameInput(event.target.value));
+    };
 
     const joinChatRoomHandler = event => {
-        event.preventDefault()
+        event.preventDefault();
         navigate(`/chat/${roomName}`);
-    }
+    };
 
     return (
         <div>
@@ -35,7 +36,7 @@ const Home = () => {
                 <button onClick={joinChatRoomHandler}>Join room</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Home;

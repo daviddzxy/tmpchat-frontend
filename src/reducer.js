@@ -9,18 +9,18 @@ const defaultState = {
         clientNames: [],
         messages: []
     }
-}
+};
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SET_CLIENT_NAME_INPUT":
-            return {...state, clientNameInput: action.data}
+            return {...state, clientNameInput: action.data};
         case "SET_CHAT_ROOM_NAME_INPUT":
-            return {...state, chatRoomNameInput: action.data}
+            return {...state, chatRoomNameInput: action.data};
         case "SET_CHAT_INPUT":
-            return {...state, chatInput: action.data}
+            return {...state, chatInput: action.data};
         case "ADD_MESSAGE":
-            return {...state, chatRoom: {...state.chatRoom, messages: [...state.chatRoom.messages, action.data]}}
+            return {...state, chatRoom: {...state.chatRoom, messages: [...state.chatRoom.messages, action.data]}};
         case "SET_CONNECTED_STATUS":
             return {
                 ...state,
@@ -28,7 +28,7 @@ const reducer = (state = defaultState, action) => {
                     ...state.chatRoom,
                     isConnected: action.data.isConnected
                 }
-            }
+            };
         case "SET_ROOM_NAME":
             return {
                 ...state,
@@ -36,18 +36,18 @@ const reducer = (state = defaultState, action) => {
                     ...state.chatRoom,
                     roomName: action.data.roomName
                 }
-            }
+            };
         case "SET_CLIENTS":
             return {
                 ...state,
                 chatRoom: {
                     ...state.chatRoom,
                     clientNames: [...action.data.clientNames]
-                    }
                 }
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default reducer
+export default reducer;
