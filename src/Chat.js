@@ -1,6 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux"
 import {sendTextMessage, setChatInput} from './actions'
+import Message from "./Message";
 
 const ChatRoom = () => {
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const ChatRoom = () => {
     return (
         <div>
             <h2>Chat</h2>
-            <div>Messages: {messages.map(e => <div key={e.id}>{e.text}</div>)}</div>
+            <div>Messages: {messages.map(e => <Message author={e.clientName} text={e.text} id={e.id}/>)}</div>
             <div>
                 <input type={"text"} id={"chatInput"} onChange={updateChatInput} value={chatInput}/>
             </div>

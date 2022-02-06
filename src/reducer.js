@@ -37,12 +37,12 @@ const reducer = (state = defaultState, action) => {
                     roomName: action.data.roomName
                 }
             }
-        case "ADD_CLIENTS":
+        case "SET_CLIENTS":
             return {
                 ...state,
                 chatRoom: {
                     ...state.chatRoom,
-                    clientNames: [...state.chatRoom.clientNames, ...action.data.clientNames]
+                    clientNames: [...action.data.clientNames]
                     }
                 }
         default:

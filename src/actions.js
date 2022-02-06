@@ -48,9 +48,9 @@ export const addMessage = (text, clientName, id) => {
     }
 }
 
-export const addClientNames = (roomName, clientNames=[]) => {
+export const setClientNames = (clientNames=[]) => {
     return {
-        type: "ADD_CLIENTS",
+        type: "SET_CLIENTS",
         data: {
             clientNames: clientNames
         }
@@ -59,7 +59,7 @@ export const addClientNames = (roomName, clientNames=[]) => {
 
 export const joinChatRoom = (roomName, clientName) => {
     return {
-        type: "JOIN_ROOM",
+        type: "JOIN",
         data: {
             roomName: roomName,
             clientName: clientName
@@ -69,7 +69,7 @@ export const joinChatRoom = (roomName, clientName) => {
 
 export const sendTextMessage = (text) => {
     return {
-        type: "SEND_TEXT_MESSAGE",
+        type: "TEXT",
         data: {
             text: text,
         }
