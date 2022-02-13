@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { joinChatRoom, leaveChatRoom, sendTextMessage, setChatInput } from './actions';
-import { useParams } from "react-router-dom";
 import Message from "./Message";
 
 
 const ChatRoom = () => {
     const dispatch = useDispatch();
-    const {roomName} = useParams();
     const clientName = useSelector(state => state.clientNameInput);
+    const roomName = useSelector(state => state.roomNameInput)
     const chatInput = useSelector(state => state.chatInput);
     const messages = useSelector(state => state.chatRoom.messages);
 

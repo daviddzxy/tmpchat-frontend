@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { createGlobalStyle } from "styled-components";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import reducer from "./reducer";
+import App from "./App";
 import createWebSocketMiddleWare from "./middleware";
-import Home from "./Home";
-import ChatRoom from "./Chat";
-import Header from "./Header";
+import reducer from "./reducer";
 
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(createWebSocketMiddleWare())));
@@ -20,15 +17,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-ReactDOM.render(<React.StrictMode>
-    <Provider store={store}>
-        <GlobalStyle/>
-        <BrowserRouter>
-            <Header/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/chat/:roomName" element={<ChatRoom/>}/>
-            </Routes>
-        </BrowserRouter>
-    </Provider>
-</React.StrictMode>, document.getElementById("root"));
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <GlobalStyle/>
+                <App/>
+        </Provider>
+    </React.StrictMode>, document.getElementById("root"));

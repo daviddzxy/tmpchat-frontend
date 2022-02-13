@@ -19,7 +19,7 @@ const Home = () => {
 
     const joinChatRoomHandler = event => {
         event.preventDefault();
-        navigate(`/chat/${roomName}`);
+        navigate(`/chat`);
     };
 
     return (
