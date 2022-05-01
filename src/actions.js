@@ -48,6 +48,13 @@ export const addMessage = (text, clientName, id) => {
     };
 };
 
+export const setMessages = (messages) => {
+    return {
+        type: "SET_MESSAGES",
+        data: messages
+    }
+}
+
 export const setClientNames = (clientNames = []) => {
     return {
         type: "SET_CLIENTS",

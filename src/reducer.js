@@ -21,6 +21,8 @@ const reducer = (state = defaultState, action) => {
             return {...state, chatInput: action.data};
         case "ADD_MESSAGE":
             return {...state, chatRoom: {...state.chatRoom, messages: [...state.chatRoom.messages, action.data]}};
+        case "SET_MESSAGES":
+            return {...state, chatRoom: {...state.chatRoom, messages: action.data}}
         case "SET_CONNECTED_STATUS":
             return {
                 ...state,
