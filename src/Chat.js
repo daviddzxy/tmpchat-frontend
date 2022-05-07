@@ -10,7 +10,7 @@ const ChatRoom = () => {
     const roomName = useSelector(state => state.roomNameInput)
     const chatInput = useSelector(state => state.chatInput);
     const messages = useSelector(state => state.chatRoom.messages);
-    const clientNames = useSelector(state => state.chatRoom.clientNames)
+    const clients = useSelector(state => state.chatRoom.clients)
 
     const updateChatInput = event => {
         dispatch(setChatInput(event.target.value));
@@ -33,7 +33,7 @@ const ChatRoom = () => {
         <div>
             <h2>Chatroom {roomName}</h2>
             <div>Messages: {messages.map(message => <Message author={message.clientName} text={message.text} key={message.id}/>)}</div>
-            <div>Users: {clientNames.map(clientName => <div>{clientName}</div>)}</div>
+            <div>Users: {clients.map(client => <div key={client.id}>{client.clientName}</div>)}</div>
             <div>
                 <input type={"text"} id={"chatInput"} onChange={updateChatInput} value={chatInput}/>
             </div>

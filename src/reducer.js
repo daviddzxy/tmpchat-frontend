@@ -6,7 +6,7 @@ const defaultState = {
     chatRoom: {
         roomName: "",
         isConnected: false,
-        clientNames: [],
+        clients: [],
         messages: []
     }
 };
@@ -44,7 +44,7 @@ const reducer = (state = defaultState, action) => {
                 ...state,
                 chatRoom: {
                     ...state.chatRoom,
-                    clientNames: [...action.data.clientNames]
+                    clients: [...action.data]
                 }
             };
         default:

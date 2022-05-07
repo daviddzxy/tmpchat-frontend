@@ -1,4 +1,4 @@
-import { setRoomName, setConnectedStatus, addMessage, setClientNames } from "./actions";
+import { setRoomName, setConnectedStatus, addMessage, setClients } from "./actions";
 
 
 const createWebSocketMiddleWare = url => {
@@ -11,7 +11,7 @@ const createWebSocketMiddleWare = url => {
                 case "SUCCESS_JOIN":
                     dispatch(setConnectedStatus(true));
                     dispatch(setRoomName(message.data.roomName));
-                    dispatch(setClientNames(message.data.clientNames));
+                    dispatch(setClients(message.data.clientNames));
                     break;
                 case "RECEIVE_TEXT":
                     dispatch(addMessage(message.data.text, message.data.clientName, message.data.id));

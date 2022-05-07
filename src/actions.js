@@ -55,12 +55,10 @@ export const setMessages = (messages) => {
     }
 }
 
-export const setClientNames = (clientNames = []) => {
+export const setClients = (clients = []) => {
     return {
         type: "SET_CLIENTS",
-        data: {
-            clientNames: clientNames
-        }
+        data: clients
     };
 };
 
