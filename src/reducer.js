@@ -47,6 +47,22 @@ const reducer = (state = defaultState, action) => {
                     clients: [...action.data]
                 }
             };
+        case "ADD_CLIENT":
+            return {
+                ...state,
+                chatRoom: {
+                    ...state.chatRoom,
+                    clients: [...state.chatRoom.clients, action.data]
+                }
+            }
+        case "REMOVE_CLIENT":
+            return {
+                ...state,
+                chatRoom: {
+                    ...state.chatRoom,
+                    clients: state.chatRoom.clients.filter(client => client.id !== action.data)
+                }
+            }
         default:
             return state;
     }

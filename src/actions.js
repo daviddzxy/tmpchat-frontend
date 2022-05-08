@@ -37,13 +37,13 @@ export const setRoomName = (roomName) => {
     };
 };
 
-export const addMessage = (text, clientName, id) => {
+export const addMessage = (text, clientId, textId) => {
     return {
         type: "ADD_MESSAGE",
         data: {
             text: text,
-            clientName: clientName,
-            id: id
+            clientId: clientId,
+            textId: textId
         }
     };
 };
@@ -61,6 +61,21 @@ export const setClients = (clients = []) => {
         data: clients
     };
 };
+
+
+export const addClient = (client) => {
+    return {
+        type: "ADD_CLIENT",
+        data: client
+    }
+}
+
+export const removeClient = (id) => {
+    return {
+        type: "REMOVE_CLIENT",
+        data: id
+    }
+}
 
 export const joinChatRoom = (roomName, clientName) => {
     return {

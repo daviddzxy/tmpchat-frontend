@@ -7,10 +7,10 @@ import Message from "./Message";
 const ChatRoom = () => {
     const dispatch = useDispatch();
     const clientName = useSelector(state => state.clientNameInput);
-    const roomName = useSelector(state => state.roomNameInput)
+    const roomName = useSelector(state => state.roomNameInput);
     const chatInput = useSelector(state => state.chatInput);
     const messages = useSelector(state => state.chatRoom.messages);
-    const clients = useSelector(state => state.chatRoom.clients)
+    const clients = useSelector(state => state.chatRoom.clients);
 
     const updateChatInput = event => {
         dispatch(setChatInput(event.target.value));
@@ -25,15 +25,24 @@ const ChatRoom = () => {
         dispatch(joinChatRoom(roomName, clientName));
         return () => {
             dispatch(leaveChatRoom());
-            dispatch(setMessages([]))
+            dispatch(setMessages([]));
         };
     }, [dispatch, roomName, clientName]);
 
     return (
         <div>
             <h2>Chatroom {roomName}</h2>
-            <div>Messages: {messages.map(message => <Message author={message.clientName} text={message.text} key={message.id}/>)}</div>
-            <div>Users: {clients.map(client => <div key={client.id}>{client.clientName}</div>)}</div>
+            <div>
+                Messages: {
+                messages.map(message => <Message
+                        author={clients.find(client => client.id === message.clientId).name}
+                        text={message.text}
+                        key={message.textId}
+                    />
+                )
+            }
+            </div>
+            <div>Users: {clients.map(client => <div key={client.id}>{client.name}</div>)}</div>
             <div>
                 <input type={"text"} id={"chatInput"} onChange={updateChatInput} value={chatInput}/>
             </div>

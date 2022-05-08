@@ -1,4 +1,4 @@
-import { setRoomName, setConnectedStatus, addMessage, setClients } from "./actions";
+import { setRoomName, setConnectedStatus, addMessage, setClients, addClient, removeClient } from "./actions";
 
 
 const createWebSocketMiddleWare = url => {
@@ -11,10 +11,16 @@ const createWebSocketMiddleWare = url => {
                 case "SUCCESS_JOIN":
                     dispatch(setConnectedStatus(true));
                     dispatch(setRoomName(message.data.roomName));
-                    dispatch(setClients(message.data.clientNames));
+                    dispatch(setClients(message.data.clients));
                     break;
                 case "RECEIVE_TEXT":
-                    dispatch(addMessage(message.data.text, message.data.clientName, message.data.id));
+                    dispatch(addMessage(message.data.text, message.data.clientId, message.data.textId));
+                    break;
+                case "ADD_CLIENT":
+                    dispatch(addClient(message.data.client))
+                    break;
+                case "REMOVE_CLIENT":
+                    dispatch(removeClient(message.data.id))
                     break;
             }
         };
