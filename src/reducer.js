@@ -1,68 +1,77 @@
-// TODO: move default state elsewhere, inject default state inside index.js createStore
 const defaultState = {
-    clientNameInput: "",
-    roomNameInput: "",
-    chatInput: "",
-    chatRoom: {
-        roomName: "",
-        isConnected: false,
-        clients: [],
-        messages: []
-    }
+    roomSessionHandleInput: "", roomHandleInput: "", textMessageInput: "", chatRooms: {}
 };
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
-        case "SET_CLIENT_NAME_INPUT":
-            return {...state, clientNameInput: action.data};
-        case "SET_CHAT_ROOM_NAME_INPUT":
-            return {...state, roomNameInput: action.data};
+        case "SET_ROOM_SESSION_HANDLE_INPUT":
+            return {...state, roomSessionHandleInput: action.data.roomSessionHandle};
+        case "SET_ROOM_HANDLE_INPUT":
+            return {...state, roomHandleInput: action.data.roomHandle};
         case "SET_CHAT_INPUT":
-            return {...state, chatInput: action.data};
+            return {...state, textMessageInput: action.data.content};
+        case "SET_CHAT_ROOM":
+            return {
+                ...state, chatRooms: {
+                    ...state.chatRooms, [action.data.roomHandle]: {
+                        roomSessionId: null, roomSessions: [], messages: []
+                    }
+                }
+            };
+        case "SET_ROOM_SESSION_ID":
+            return {
+                ...state, chatRooms: {
+                    ...state.chatRooms, [action.data.roomHandle]: {
+                        ...state.chatRooms[action.data.roomHandle], roomSessionId: action.data.roomSessionId
+                    }
+                }
+            };
+        case "SET_ROOM_SESSIONS":
+            return {
+                ...state, chatRooms: {
+                    ...state.chatRooms, [action.data.roomHandle]: {
+                        ...state.chatRooms[action.data.roomHandle], roomSessions: action.data.roomSessions
+                    }
+                }
+            };
+        case "ADD_ROOM_SESSION":
+            return {
+                ...state, chatRooms: {
+                    ...state.chatRooms, [action.data.roomHandle]: {
+                        ...state.chatRooms[action.data.roomHandle], roomSessions: {
+                            ...state.chatRooms[action.data.roomHandle].roomSessions,
+                            [action.data.roomSession.id]: action.data.roomSession
+                        }
+                    }
+                }
+            };
+        case "REMOVE_ROOM_SESSION":
+            const {
+                [action.data.roomSessionId]: removedRoomSession, ...roomSessions
+            } = state.chatRooms[action.data.roomHandle].roomSessions;
+            return {
+                ...state, chatRooms: {
+                    ...state.chatRooms,
+                    [action.data.roomHandle]: {
+                        ...state.chatRooms[action.data.roomHandle], roomSessions: roomSessions
+                    }
+                }
+            };
+
         case "ADD_MESSAGE":
-            return {...state, chatRoom: {...state.chatRoom, messages: [...state.chatRoom.messages, action.data]}};
-        case "SET_MESSAGES":
-            return {...state, chatRoom: {...state.chatRoom, messages: action.data}}
-        case "SET_CONNECTED_STATUS":
             return {
-                ...state,
-                chatRoom: {
-                    ...state.chatRoom,
-                    isConnected: action.data.isConnected
+                ...state, chatRooms: {
+                    ...state.chatRooms, [action.data.roomHandle]: {
+                        ...state.chatRooms[action.data.roomHandle],
+                        messages: [...state.chatRooms[action.data.roomHandle].messages, {
+                            content: action.data.content, roomSessionId: action.data.roomSessionId
+                        }]
+                    }
                 }
             };
-        case "SET_ROOM_NAME":
-            return {
-                ...state,
-                chatRoom: {
-                    ...state.chatRoom,
-                    roomName: action.data.roomName
-                }
-            };
-        case "SET_CLIENTS":
-            return {
-                ...state,
-                chatRoom: {
-                    ...state.chatRoom,
-                    clients: [...action.data]
-                }
-            };
-        case "ADD_CLIENT":
-            return {
-                ...state,
-                chatRoom: {
-                    ...state.chatRoom,
-                    clients: [...state.chatRoom.clients, action.data]
-                }
-            }
-        case "REMOVE_CLIENT":
-            return {
-                ...state,
-                chatRoom: {
-                    ...state.chatRoom,
-                    clients: state.chatRoom.clients.filter(client => client.id !== action.data)
-                }
-            }
+        case "REMOVE_CHAT_ROOM":
+            const {[action.data.roomHandle]: removedChatRoom, ...chatRooms} = state.chatRooms;
+            return {...state, chatRooms: chatRooms};
         default:
             return state;
     }

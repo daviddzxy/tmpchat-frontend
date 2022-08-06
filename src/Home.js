@@ -1,36 +1,37 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setClientNameInput, setChatRoomNameInput } from "./actions";
+import { setRoomSessionHandleInput, setRoomHandleInput, setChatRoom } from "./actions";
 import { useNavigate } from "react-router-dom";
 
 
 const Home = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const clientName = useSelector(state => state.clientNameInput);
-    const roomName = useSelector(state => state.chatRoomNameInput);
+    const roomSessionHandle = useSelector(state => state.roomSessionHandle);
+    const roomHandleInput = useSelector(state => state.roomHandleInput);
 
-    const updateClientNameInput = event => {
-        dispatch(setClientNameInput(event.target.value));
+    const updateRoomSessionInput = event => {
+        dispatch(setRoomSessionHandleInput(event.target.value));
     };
 
     const updateChatRoomNameInput = event => {
-        dispatch(setChatRoomNameInput(event.target.value));
+        dispatch(setRoomHandleInput(event.target.value));
     };
 
     const joinChatRoomHandler = event => {
         event.preventDefault();
-        navigate(`/chat`);
+        dispatch(setChatRoom(roomHandleInput))
+        navigate(`/chat/${roomHandleInput}`);
     };
 
     return (
         <div>
             <div>
                 <label htmlFor={"clientName"}>Name</label>
-                <input type={"text"} id={"clientName"} value={clientName} onChange={updateClientNameInput}/>
+                <input type={"text"} id={"roomSessionHandle"} value={roomSessionHandle} onChange={updateRoomSessionInput}/>
             </div>
             <div>
                 <label htmlFor={"roomName"}>Chatroom</label>
-                <input type={"text"} id={"roomName"} value={roomName} onChange={updateChatRoomNameInput}/>
+                <input type={"text"} id={"roomHandleInput"} value={roomHandleInput} onChange={updateChatRoomNameInput}/>
             </div>
             <div>
                 <button onClick={joinChatRoomHandler}>Join room</button>

@@ -1,4 +1,11 @@
-import { setRoomName, setConnectedStatus, addMessage, setClients, addClient, removeClient } from "./actions";
+import {
+    addMessage,
+    addRoomSession,
+    removeChatRoom,
+    removeRoomSession,
+    setRoomSessionId,
+    setRoomSessions
+} from "./actions";
 
 
 const createWebSocketMiddleWare = url => {
@@ -9,18 +16,20 @@ const createWebSocketMiddleWare = url => {
             const message = JSON.parse(e.data);
             switch (message.type) {
                 case "SUCCESS_JOIN":
-                    dispatch(setConnectedStatus(true));
-                    dispatch(setRoomName(message.data.roomName));
-                    dispatch(setClients(message.data.clients));
+                    dispatch(setRoomSessionId(message.data.roomHandle, message.data.roomSessionId))
+                    dispatch(setRoomSessions(message.data.roomHandle, message.data.roomSessions))
+                    break;
+                case "SUCCESS_PART":
+                    dispatch(removeChatRoom(message.data.roomHandle))
                     break;
                 case "RECEIVE_TEXT":
-                    dispatch(addMessage(message.data.text, message.data.clientId, message.data.textId));
+                    dispatch(addMessage(message.data.content, message.data.roomHandle, message.data.roomSessionId))
                     break;
-                case "ADD_CLIENT":
-                    dispatch(addClient(message.data.client))
+                case "ROOM_SESSION_JOIN":
+                    dispatch(addRoomSession(message.data.roomHandle, message.data.roomSession))
                     break;
-                case "REMOVE_CLIENT":
-                    dispatch(removeClient(message.data.id))
+                case "ROOM_SESSION_PART":
+                    dispatch(removeRoomSession(message.data.roomHandle, message.data.roomSessionId))
                     break;
             }
         };

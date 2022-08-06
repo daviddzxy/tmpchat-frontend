@@ -7,14 +7,14 @@ import Home from "./Home";
 
 
 const App = () => {
-    const clientName = useSelector(state => state.clientNameInput);
-    const roomName = useSelector(state => state.roomNameInput);
+    const roomSessionHandleInput = useSelector(state => state.roomSessionHandleInput);
+    const roomHandleInput = useSelector(state => state.roomHandleInput);
     return (
         <BrowserRouter>
             <Header/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/chat" element={clientName && roomName ? <Chat/> : <Navigate to={"/"}/>}/>
+                <Route path="/chat/:roomHandle" element={roomHandleInput && roomSessionHandleInput ? <Chat/> : <Navigate to={"/"}/>}/>
             </Routes>
         </BrowserRouter>
     );
