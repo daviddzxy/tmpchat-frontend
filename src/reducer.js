@@ -1,8 +1,4 @@
-const defaultState = {
-    roomSessionHandleInput: "", roomHandleInput: "", textMessageInput: "", chatRooms: {}
-};
-
-const reducer = (state = defaultState, action) => {
+const reducer = (state, action) => {
     switch (action.type) {
         case "SET_ROOM_SESSION_HANDLE_INPUT":
             return {...state, roomSessionHandleInput: action.data.roomSessionHandle};
