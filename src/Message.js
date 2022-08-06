@@ -1,10 +1,10 @@
 import React from "react";
 
 
-const Message = ({author, text}) => {
+const Message = ({author, content}) => {
     return (
         <div>
-            {author}: {text}
+            {author}: {content}
         </div>
     );
 };

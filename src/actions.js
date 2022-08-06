@@ -1,103 +1,125 @@
-export const setClientNameInput = name => {
+export const setRoomSessionHandleInput = roomSessionHandle => {
     return {
-        type: "SET_CLIENT_NAME_INPUT",
-        data: name
-    };
-};
-
-export const setChatRoomNameInput = name => {
-    return {
-        type: "SET_CHAT_ROOM_NAME_INPUT",
-        data: name
-    };
-};
-
-export const setChatInput = text => {
-    return {
-        type: "SET_CHAT_INPUT",
-        data: text
-    };
-};
-
-export const setConnectedStatus = (isConnected) => {
-    return {
-        type: "SET_CONNECTED_STATUS",
+        type: "SET_ROOM_SESSION_HANDLE_INPUT",
         data: {
-            isConnected: isConnected
+            roomSessionHandle: roomSessionHandle
         }
     };
 };
 
-export const setRoomName = (roomName) => {
+export const setRoomHandleInput = roomHandle => {
     return {
-        type: "SET_ROOM_NAME",
+        type: "SET_ROOM_HANDLE_INPUT",
         data: {
-            roomName: roomName
+            roomHandle: roomHandle
         }
     };
 };
 
-export const addMessage = (text, clientId, textId) => {
+export const addMessage = (content, roomHandle, roomSessionId) => {
     return {
         type: "ADD_MESSAGE",
         data: {
-            text: text,
-            clientId: clientId,
-            textId: textId
+            content: content,
+            roomHandle: roomHandle,
+            roomSessionId: roomSessionId
+        }
+    }
+}
+
+export const setChatInput = content => {
+    return {
+        type: "SET_CHAT_INPUT",
+        data: {
+            content: content
         }
     };
 };
 
-export const setMessages = (messages) => {
+export const setChatRoom = roomHandle => {
     return {
-        type: "SET_MESSAGES",
-        data: messages
+        type: "SET_CHAT_ROOM",
+        data: {
+            roomHandle: roomHandle,
+        }
     }
 }
 
-export const setClients = (clients = []) => {
+export const setRoomSessionId = (roomHandle, roomSessionId) => {
     return {
-        type: "SET_CLIENTS",
-        data: clients
-    };
-};
-
-
-export const addClient = (client) => {
-    return {
-        type: "ADD_CLIENT",
-        data: client
+        type: "SET_ROOM_SESSION_ID",
+        data: {
+            roomHandle: roomHandle,
+            roomSessionId: roomSessionId
+        }
     }
 }
 
-export const removeClient = (id) => {
+export const addRoomSession = (roomHandle, roomSession) => {
     return {
-        type: "REMOVE_CLIENT",
-        data: id
+        type: "ADD_ROOM_SESSION",
+        data: {
+            roomHandle: roomHandle,
+            roomSession: roomSession
+        }
     }
 }
 
-export const joinChatRoom = (roomName, clientName) => {
+export const removeRoomSession = (roomHandle, roomSessionId) => {
+    return {
+        type: "REMOVE_ROOM_SESSION",
+        data: {
+            roomHandle: roomHandle,
+            roomSessionId: roomSessionId
+        }
+    }
+}
+
+export const setRoomSessions = (roomHandle, roomSessions) => {
+    return {
+        type: "SET_ROOM_SESSIONS",
+        data: {
+            roomHandle: roomHandle,
+            roomSessions: roomSessions
+        }
+    }
+}
+
+export const removeChatRoom = roomHandle => {
+    return {
+        type: "REMOVE_CHAT_ROOM",
+        data: {
+            roomHandle: roomHandle
+        }
+    }
+}
+
+export const joinChatRoom = (roomHandle, roomSessionHandle) => {
     return {
         type: "JOIN",
         data: {
-            roomName: roomName,
-            clientName: clientName
+            roomHandle: roomHandle,
+            roomSessionHandle: roomSessionHandle
         }
-    };
-};
 
-export const leaveChatRoom = () => {
+    }
+}
+
+export const leaveChatRoom = roomHandle => {
     return {
-        type: "PART"
-    };
-};
+        type: "PART",
+        data: {
+            roomHandle: roomHandle
+        }
+    }
+}
 
-export const sendTextMessage = (text) => {
+export const sendTextMessage = (content, roomHandle) => {
     return {
         type: "TEXT",
         data: {
-            text: text
+            content: content,
+            roomHandle: roomHandle
         }
-    };
-};
+    }
+}

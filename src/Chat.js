@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { joinChatRoom, leaveChatRoom, sendTextMessage, setChatInput, setMessages } from './actions';
-import Message from "./Message";
-
+import { setChatInput, joinChatRoom, leaveChatRoom, sendTextMessage } from './actions';
+import Message from "./Message"
 
 const ChatRoom = () => {
     const dispatch = useDispatch();
-    const clientName = useSelector(state => state.clientNameInput);
-    const roomName = useSelector(state => state.roomNameInput);
-    const chatInput = useSelector(state => state.chatInput);
-    const messages = useSelector(state => state.chatRoom.messages);
-    const clients = useSelector(state => state.chatRoom.clients);
+    const roomSessionHandleInput = useSelector(state => state.roomSessionHandleInput);
+    const roomHandleInput = useSelector(state => state.roomHandleInput);
+    const textMessageInput = useSelector(state => state.textMessageInput);
+
+    const getChatRoom = roomHandle => store => {
+        return store.chatRooms[roomHandle]
+    }
+    const chatRoom = useSelector(getChatRoom(roomHandleInput));
 
     const updateChatInput = event => {
         dispatch(setChatInput(event.target.value));
@@ -18,33 +20,36 @@ const ChatRoom = () => {
 
     const sendMessage = event => {
         event.preventDefault();
-        dispatch(sendTextMessage(chatInput));
+        dispatch(sendTextMessage(textMessageInput, roomHandleInput));
     };
 
     useEffect(() => {
-        dispatch(joinChatRoom(roomName, clientName));
+        dispatch(joinChatRoom(roomHandleInput, roomSessionHandleInput));
         return () => {
-            dispatch(leaveChatRoom());
-            dispatch(setMessages([]));
+             dispatch(leaveChatRoom(roomHandleInput));
         };
-    }, [dispatch, roomName, clientName]);
+    }, [dispatch, roomHandleInput, roomSessionHandleInput]);
 
     return (
         <div>
-            <h2>Chatroom {roomName}</h2>
+            <h2>Chatroom {roomHandleInput}</h2>
             <div>
-                Messages: {
-                messages.map(message => <Message
-                        author={clients.find(client => client.id === message.clientId).name}
-                        text={message.text}
-                        key={message.textId}
-                    />
-                )
-            }
+                <h3>Messages</h3>
+                {
+                    chatRoom.messages.map(m => <Message
+                            author={Object.values(chatRoom.roomSessions).find(rs => rs.id === m.roomSessionId).handle}
+                            content={m.content}/>
+                    )
+                }
             </div>
-            <div>Users: {clients.map(client => <div key={client.id}>{client.name}</div>)}</div>
             <div>
-                <input type={"text"} id={"chatInput"} onChange={updateChatInput} value={chatInput}/>
+                <h3>Users</h3>
+                {
+                    Object.values(chatRoom.roomSessions).map(rs => <div>{rs.handle}</div>)
+                }
+            </div>
+            <div>
+                <input type={"text"} id={"chatInput"} onChange={updateChatInput} value={textMessageInput}/>
             </div>
             <div>
                 <button onClick={sendMessage}>Send</button>
