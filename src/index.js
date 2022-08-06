@@ -8,8 +8,11 @@ import App from "./App";
 import createWebSocketMiddleWare from "./middleware";
 import reducer from "./reducer";
 
+const initialState = {
+    roomSessionHandleInput: "", roomHandleInput: "", textMessageInput: "", chatRooms: {}
+};
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(createWebSocketMiddleWare())));
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(createWebSocketMiddleWare())));
 
 const GlobalStyle = createGlobalStyle`
   body {
