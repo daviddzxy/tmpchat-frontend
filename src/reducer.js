@@ -55,12 +55,17 @@ const reducer = (state, action) => {
             };
 
         case "ADD_MESSAGE":
+            const roomSessionHandle = Object.values(state.chatRooms[action.data.roomHandle].roomSessions).find(
+                rs => rs.id === action.data.roomSessionId
+            ).handle
             return {
                 ...state, chatRooms: {
                     ...state.chatRooms, [action.data.roomHandle]: {
                         ...state.chatRooms[action.data.roomHandle],
                         messages: [...state.chatRooms[action.data.roomHandle].messages, {
-                            content: action.data.content, roomSessionId: action.data.roomSessionId
+                            handle: roomSessionHandle,
+                            content: action.data.content,
+                            roomSessionId: action.data.roomSessionId
                         }]
                     }
                 }

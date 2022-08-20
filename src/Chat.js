@@ -37,7 +37,7 @@ const ChatRoom = () => {
                 <h3>Messages</h3>
                 {
                     chatRoom.messages.map(m => <Message
-                            author={Object.values(chatRoom.roomSessions).find(rs => rs.id === m.roomSessionId).handle}
+                            author={m.handle}
                             content={m.content}/>
                     )
                 }
