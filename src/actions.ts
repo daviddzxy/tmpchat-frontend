@@ -1,4 +1,20 @@
-export const setRoomSessionHandleInput = roomSessionHandle => {
+import {
+    SetRoomSessionHandleInputAction,
+    SetRoomHandleInputAction,
+    AddMessageAction,
+    SetChatInputAction,
+    SetChatRoomAction,
+    SetRoomSessionIdAction,
+    AddRoomSessionAction,
+    RemoveRoomSessionAction,
+    SetRoomSessionsAction,
+    RemoveChatRoomAction,
+    JoinChatRoomAction,
+    LeaveChatRoomAction,
+    SendTextMessage, RoomSession
+} from "./types";
+
+export const setRoomSessionHandleInput = (roomSessionHandle: string): SetRoomSessionHandleInputAction => {
     return {
         type: "SET_ROOM_SESSION_HANDLE_INPUT",
         data: {
@@ -7,7 +23,7 @@ export const setRoomSessionHandleInput = roomSessionHandle => {
     };
 };
 
-export const setRoomHandleInput = roomHandle => {
+export const setRoomHandleInput = (roomHandle: string): SetRoomHandleInputAction => {
     return {
         type: "SET_ROOM_HANDLE_INPUT",
         data: {
@@ -16,7 +32,7 @@ export const setRoomHandleInput = roomHandle => {
     };
 };
 
-export const addMessage = (content, roomHandle, roomSessionId) => {
+export const addMessage = (content: string, roomHandle: string, roomSessionId: number): AddMessageAction => {
     return {
         type: "ADD_MESSAGE",
         data: {
@@ -27,7 +43,7 @@ export const addMessage = (content, roomHandle, roomSessionId) => {
     }
 }
 
-export const setChatInput = content => {
+export const setChatInput = (content: string): SetChatInputAction => {
     return {
         type: "SET_CHAT_INPUT",
         data: {
@@ -36,7 +52,7 @@ export const setChatInput = content => {
     };
 };
 
-export const setChatRoom = roomHandle => {
+export const setChatRoom = (roomHandle: string): SetChatRoomAction => {
     return {
         type: "SET_CHAT_ROOM",
         data: {
@@ -45,7 +61,7 @@ export const setChatRoom = roomHandle => {
     }
 }
 
-export const setRoomSessionId = (roomHandle, roomSessionId) => {
+export const setRoomSessionId = (roomHandle: string, roomSessionId: number): SetRoomSessionIdAction => {
     return {
         type: "SET_ROOM_SESSION_ID",
         data: {
@@ -55,7 +71,7 @@ export const setRoomSessionId = (roomHandle, roomSessionId) => {
     }
 }
 
-export const addRoomSession = (roomHandle, roomSession) => {
+export const addRoomSession = (roomHandle: string, roomSession: RoomSession): AddRoomSessionAction => {
     return {
         type: "ADD_ROOM_SESSION",
         data: {
@@ -65,7 +81,7 @@ export const addRoomSession = (roomHandle, roomSession) => {
     }
 }
 
-export const removeRoomSession = (roomHandle, roomSessionId) => {
+export const removeRoomSession = (roomHandle: string, roomSessionId: number): RemoveRoomSessionAction => {
     return {
         type: "REMOVE_ROOM_SESSION",
         data: {
@@ -75,7 +91,7 @@ export const removeRoomSession = (roomHandle, roomSessionId) => {
     }
 }
 
-export const setRoomSessions = (roomHandle, roomSessions) => {
+export const setRoomSessions = (roomHandle: string, roomSessions: { [roomSessions: number]: RoomSession }): SetRoomSessionsAction => {
     return {
         type: "SET_ROOM_SESSIONS",
         data: {
@@ -85,7 +101,7 @@ export const setRoomSessions = (roomHandle, roomSessions) => {
     }
 }
 
-export const removeChatRoom = roomHandle => {
+export const removeChatRoom = (roomHandle: string): RemoveChatRoomAction => {
     return {
         type: "REMOVE_CHAT_ROOM",
         data: {
@@ -94,18 +110,17 @@ export const removeChatRoom = roomHandle => {
     }
 }
 
-export const joinChatRoom = (roomHandle, roomSessionHandle) => {
+export const joinChatRoom = (roomHandle: string, roomSessionHandle: string): JoinChatRoomAction => {
     return {
         type: "JOIN",
         data: {
             roomHandle: roomHandle,
             roomSessionHandle: roomSessionHandle
         }
-
     }
 }
 
-export const leaveChatRoom = roomHandle => {
+export const leaveChatRoom = (roomHandle: string): LeaveChatRoomAction => {
     return {
         type: "PART",
         data: {
@@ -114,7 +129,7 @@ export const leaveChatRoom = roomHandle => {
     }
 }
 
-export const sendTextMessage = (content, roomHandle) => {
+export const sendTextMessage = (content: string, roomHandle: string): SendTextMessage => {
     return {
         type: "TEXT",
         data: {

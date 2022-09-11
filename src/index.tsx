@@ -1,18 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
-import createWebSocketMiddleWare from "./middleware";
 import reducer from "./reducer";
+import { Action, State } from "./types";
+import { webSocketMiddleWare } from "./middleware";
 
-const initialState = {
-    roomSessionHandleInput: "", roomHandleInput: "", textMessageInput: "", chatRooms: {}
-};
-
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(createWebSocketMiddleWare())));
+const store: Store<State, Action> = createStore(reducer, composeWithDevTools(applyMiddleware(webSocketMiddleWare)));
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -24,6 +21,6 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <GlobalStyle/>
-                <App/>
+            <App/>
         </Provider>
     </React.StrictMode>, document.getElementById("root"));

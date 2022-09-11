@@ -1,4 +1,13 @@
-const reducer = (state, action) => {
+import { Action, State } from "./types"
+
+const initialState = {
+    roomSessionHandleInput: "",
+    roomHandleInput: "",
+    textMessageInput: "",
+    chatRooms: {}
+};
+
+const reducer = (state: State = initialState, action: Action): State => {
     switch (action.type) {
         case "SET_ROOM_SESSION_HANDLE_INPUT":
             return {...state, roomSessionHandleInput: action.data.roomSessionHandle};
@@ -10,7 +19,10 @@ const reducer = (state, action) => {
             return {
                 ...state, chatRooms: {
                     ...state.chatRooms, [action.data.roomHandle]: {
-                        roomSessionId: null, roomSessions: [], messages: []
+                        roomHandle: action.data.roomHandle,
+                        roomSessionId: null,
+                        roomSessions: {},
+                        messages: []
                     }
                 }
             };
@@ -55,10 +67,10 @@ const reducer = (state, action) => {
             };
 
         case "ADD_MESSAGE":
-            const roomSessionHandle = Object.values(state.chatRooms[action.data.roomHandle].roomSessions).find(
+            const roomSessionHandle = Object.values(state.chatRooms[action.data.roomHandle].roomSessions)?.find(
                 rs => rs.id === action.data.roomSessionId
-            ).handle
-            return {
+            )?.handle
+            return roomSessionHandle ? {
                 ...state, chatRooms: {
                     ...state.chatRooms, [action.data.roomHandle]: {
                         ...state.chatRooms[action.data.roomHandle],
@@ -69,12 +81,12 @@ const reducer = (state, action) => {
                         }]
                     }
                 }
-            };
+            } : {...state};
         case "REMOVE_CHAT_ROOM":
             const {[action.data.roomHandle]: removedChatRoom, ...chatRooms} = state.chatRooms;
             return {...state, chatRooms: chatRooms};
         default:
-            return state;
+            return {...state};
     }
 };
 
