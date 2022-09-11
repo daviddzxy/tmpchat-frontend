@@ -2,23 +2,24 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setChatInput, joinChatRoom, leaveChatRoom, sendTextMessage } from './actions';
 import Message from "./Message"
+import { State } from "./types";
 
 const ChatRoom = () => {
     const dispatch = useDispatch();
-    const roomSessionHandleInput = useSelector(state => state.roomSessionHandleInput);
-    const roomHandleInput = useSelector(state => state.roomHandleInput);
-    const textMessageInput = useSelector(state => state.textMessageInput);
+    const roomSessionHandleInput = useSelector((state: State) => state.roomSessionHandleInput);
+    const roomHandleInput = useSelector((state: State) => state.roomHandleInput);
+    const textMessageInput = useSelector((state: State) => state.textMessageInput);
 
-    const getChatRoom = roomHandle => store => {
-        return store.chatRooms[roomHandle]
+    const getChatRoom = (roomHandle: string) => (state: State) => {
+        return state.chatRooms[roomHandle]
     }
     const chatRoom = useSelector(getChatRoom(roomHandleInput));
 
-    const updateChatInput = event => {
+    const updateChatInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setChatInput(event.target.value));
     };
 
-    const sendMessage = event => {
+    const sendMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         dispatch(sendTextMessage(textMessageInput, roomHandleInput));
     };
@@ -26,7 +27,7 @@ const ChatRoom = () => {
     useEffect(() => {
         dispatch(joinChatRoom(roomHandleInput, roomSessionHandleInput));
         return () => {
-             dispatch(leaveChatRoom(roomHandleInput));
+            dispatch(leaveChatRoom(roomHandleInput));
         };
     }, [dispatch, roomHandleInput, roomSessionHandleInput]);
 
@@ -37,8 +38,8 @@ const ChatRoom = () => {
                 <h3>Messages</h3>
                 {
                     chatRoom.messages.map(m => <Message
-                            author={m.handle}
-                            content={m.content}/>
+                        author={m.handle}
+                        content={m.content}/>
                     )
                 }
             </div>

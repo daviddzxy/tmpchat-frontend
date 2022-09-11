@@ -1,23 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomSessionHandleInput, setRoomHandleInput, setChatRoom } from "./actions";
 import { useNavigate } from "react-router-dom";
+import { State } from "./types";
+import React from "react";
 
 
 const Home = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const roomSessionHandle = useSelector(state => state.roomSessionHandle);
-    const roomHandleInput = useSelector(state => state.roomHandleInput);
+    const roomSessionHandle = useSelector((state: State) => state.roomSessionHandleInput);
+    const roomHandleInput = useSelector((state: State) => state.roomHandleInput);
 
-    const updateRoomSessionInput = event => {
+    const updateRoomSessionInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setRoomSessionHandleInput(event.target.value));
     };
 
-    const updateChatRoomNameInput = event => {
+    const updateChatRoomNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setRoomHandleInput(event.target.value));
     };
 
-    const joinChatRoomHandler = event => {
+    const joinChatRoomHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         dispatch(setChatRoom(roomHandleInput))
         navigate(`/chat/${roomHandleInput}`);
@@ -27,7 +29,8 @@ const Home = () => {
         <div>
             <div>
                 <label htmlFor={"clientName"}>Name</label>
-                <input type={"text"} id={"roomSessionHandle"} value={roomSessionHandle} onChange={updateRoomSessionInput}/>
+                <input type={"text"} id={"roomSessionHandle"} value={roomSessionHandle}
+                       onChange={updateRoomSessionInput}/>
             </div>
             <div>
                 <label htmlFor={"roomName"}>Chatroom</label>
